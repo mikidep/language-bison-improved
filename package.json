@@ -1,0 +1,15 @@
+{
+  "name": "language-bison",
+  "version": "0.0.1",
+  "description": "Atom language support for Bison",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EliaGeretto/language-bison"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {
+  }
+}

@@ -1,0 +1,50 @@
+'scopeName': 'source.bison'
+'fileTypes': [
+  'y'
+]
+'name': 'Bison'
+'patterns': [
+  {
+    'include': '#rules'                       # Has to be the first pattern
+    'comment': 'Match the beginning of the grammar rules area'
+  }
+]
+'repository':
+  'rules':
+    'patterns': [
+      {
+        'begin': '^(%%)$'
+        'contentName': 'markup.bold'
+        'comment': 'Match grammar rules area'
+        'captures':
+          '0':
+            'name': 'markup.italic'           # Match first %% symbol
+        'patterns': [
+          {
+            'include': '#epilogue'            # Has to be the first pattern
+            'comment': 'Match the beginning of the epilogue'
+          }
+        ]
+      }
+    ]
+  'epilogue':
+    'patterns': [
+      'begin': '^(%%)$'
+      'contentName': 'comment.line'
+      'comment': 'Match epilogue area'
+      'captures':
+        '0':
+          'name': 'markup.italic'             # Match second %% symbol
+      'patterns': [
+        {
+          'include': '#structure_error'       # Has to be the first pattern
+          'comment': 'Match the first exceeding %% symbol'
+        }
+      ]
+    ]
+  'structure_error':
+    'patterns': [
+      'begin': '^(%%)$'
+      'name': 'invalid.illegal.exceeding-%%-symbols.bison'
+      'comment': 'Match exceeding %% symbols'
+    ]
