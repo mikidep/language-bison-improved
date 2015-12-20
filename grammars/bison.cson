@@ -38,12 +38,19 @@
 'repository':
   'first_section':
     'patterns': [
-        {
-          'begin': '(?!^%%$)'
-          'end': '(?=^%%$)'
-          'comment': 'Match the content of the first section'
-          'name': 'meta.section.first.bison'
-        }
+      {
+        'begin': '(?!^%%$)'
+        'end': '(?=^%%$)'
+        'comment': 'Match the content of the first section'
+        'name': 'meta.section.first.bison'
+        'patterns': [
+          # TODO: Matching for the prologue goes here
+          {
+            'include': 'source.c#comments'
+            'comment': 'Bison supports C/C++ comments'
+          }
+        ]
+      }
     ]
   'second_section':
     'patterns': [
@@ -52,6 +59,13 @@
         'end': '(?=^%%$)'
         'comment': 'Match the content of the second section'
         'name': 'meta.section.second.bison'
+        'patterns': [
+          # TODO: Matching of C code in brackets goes here
+          {
+            'include': 'source.c#comments'
+            'comment': 'Bison supports C/C++ comments'
+          }
+        ]
       }
     ]
   'third_section':
