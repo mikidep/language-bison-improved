@@ -63,10 +63,12 @@
         'comment': 'Match the content of the second section'
         'name': 'meta.section.second.bison'
         'patterns': [
-          # TODO: Matching of C code in brackets goes here
           {
             'include': '#comments'
             'comment': 'Bison supports C/C++ comments'
+          }
+          {
+            'include': '#rules'
           }
         ]
       }
@@ -107,6 +109,46 @@
           'comment': 'Prologues contain C code only'
         }
       ]
+    ]
+  'rules':
+    'patterns': [
+      {
+        'begin': '[a-zA-Z_.\-][a-zA-Z_.\-0-9]*\\s*:'
+        'end': ';'
+        #TODO: Add names for production heads and ; symbol
+        'comment': 'Match grammar rules, second section only'
+        'name': 'meta.grammar-rule.bison'
+        'patterns': [
+          {
+            'include': '#comments'
+            'comment': 'Comments can be also inside grammar rules'
+          }
+          {
+            'include': '#actions'
+          }
+        ]
+      }
+    ]
+  'actions':
+    'patterns': [
+      {
+        'begin': '\\{'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.action.begin.bison'
+        'end': '\\}'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.action.end.bison'
+        'name': 'meta.action.bison'
+        'comment': 'Match action blocks associated with grammar rules'
+        'patterns': [
+          # TODO: Patterns for $-variable go here, or inside block_innards
+          {
+            'include': '#block_innards'
+          }
+        ]
+      }
     ]
   'language_c':                                   # Base grammar from C language
     'patterns': [
