@@ -8,13 +8,18 @@
     'include': '#rules'                       # Has to be the first pattern
     'comment': 'Match the beginning of the grammar rules area'
   }
+  {
+    'begin': '(?!^%%$)'
+    'end': '(?=^%%$)'
+    'comment': 'First area with prologue and declarations'
+    'name': 'markup.comment'
+  }
 ]
 'repository':
   'rules':
     'patterns': [
       {
         'begin': '^(%%)$'
-        'contentName': 'markup.bold'
         'comment': 'Match grammar rules area'
         'captures':
           '0':
@@ -24,13 +29,18 @@
             'include': '#epilogue'            # Has to be the first pattern
             'comment': 'Match the beginning of the epilogue'
           }
+          {
+            'begin': '(?!^%%$)'
+            'end': '(?=^%%$)'
+            'comment': 'Second area with grammar rules'
+            'name': 'markup.comment'
+          }
         ]
       }
     ]
   'epilogue':
     'patterns': [
       'begin': '^(%%)$'
-      'contentName': 'comment.line'
       'comment': 'Match epilogue area'
       'captures':
         '0':
@@ -39,6 +49,12 @@
         {
           'include': '#structure_error'       # Has to be the first pattern
           'comment': 'Match the first exceeding %% symbol'
+        }
+        {
+          'begin': '(?!^%%$)'
+          'end': '(?=^%%$)'
+          'comment': 'Second area with grammar rules'
+          'name': 'markup.comment'
         }
       ]
     ]
