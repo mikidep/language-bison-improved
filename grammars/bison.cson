@@ -9,14 +9,14 @@
     'comment': 'Match from first %% symbol to EOF'
     'captures':
       '0':
-        'name': 'markup.italic'                   # Match first %% symbol
+        'name': 'meta.separator'                  # Match first %% symbol
     'patterns': [
       {
         'begin': '^(%%)$'                         # Has to be the first pattern
         'comment': 'Match from second %% symbol to EOF'
         'captures':
           '0':
-            'name': 'markup.italic'               # Match second %% symbol
+            'name': 'meta.separator'              # Match second %% symbol
         'patterns': [
           {
             'include': '#exceeding_sections'      # Has to be the first pattern
@@ -42,7 +42,7 @@
           'begin': '(?!^%%$)'
           'end': '(?=^%%$)'
           'comment': 'Match the content of the first section'
-          'name': 'markup.comment'
+          'name': 'meta.section.first.bison'
         }
     ]
   'second_section':
@@ -51,7 +51,7 @@
         'begin': '(?!^%%$)'
         'end': '(?=^%%$)'
         'comment': 'Match the content of the second section'
-        'name': 'markup.comment'
+        'name': 'meta.section.second.bison'
       }
     ]
   'third_section':
@@ -60,12 +60,12 @@
         'begin': '(?!^%%$)'
         'end': '(?=^%%$)'
         'comment': 'Match the content of the third section'
-        'name': 'markup.comment'
+        'name': 'meta.section.third.bison'
       }
     ]
   'exceeding_sections':
     'patterns': [
       'begin': '^(%%)$'
-      'name': 'invalid.illegal.exceeding-%%-symbols.bison'
+      'name': 'invalid.illegal.exceeding-sections.bison'
       'comment': 'Match exceeding sections created by too many %% symbols'
     ]
