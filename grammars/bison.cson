@@ -9,14 +9,14 @@
     'comment': 'Match from first %% symbol to EOF'
     'captures':
       '0':
-        'name': 'meta.separator'                  # Match first %% symbol
+        'name': 'meta.separator.section.bison'    # Match first %% symbol
     'patterns': [
       {
         'begin': '^(%%)$'                         # Has to be the first pattern
         'comment': 'Match from second %% symbol to EOF'
         'captures':
           '0':
-            'name': 'meta.separator'              # Match second %% symbol
+            'name': 'meta.separator.section.bison'# Match second %% symbol
         'patterns': [
           {
             'include': '#exceeding_sections'      # Has to be the first pattern
@@ -44,7 +44,10 @@
         'comment': 'Match the content of the first section'
         'name': 'meta.section.first.bison'
         'patterns': [
-          # TODO: Matching for the prologue goes here
+          {
+            'include': '#prologue'
+          }
+          # TODO: Matching of declarations goes here, or above.
           {
             'include': 'source.c#comments'
             'comment': 'Bison supports C/C++ comments'
@@ -82,4 +85,19 @@
       'begin': '^(%%)$'
       'name': 'invalid.illegal.exceeding-sections.bison'
       'comment': 'Match exceeding sections created by too many %% symbols'
+    ]
+  'prologue':
+    'patterns': [
+      'begin': '%{'
+      'end': '%}'
+      'comment': 'Match the prologues, first section only'
+      'name': 'meta.section.prologue'
+      'captures':
+        '0':
+          'name': 'meta.separator.prologue.bison' # Match %{ and %} symbols
+      'patterns': [
+        {
+          #'include': 'source.c'
+        }
+      ]
     ]
