@@ -5,62 +5,67 @@
 'name': 'Bison'
 'patterns': [
   {
-    'include': '#rules'                       # Has to be the first pattern
-    'comment': 'Match the beginning of the grammar rules area'
-  }
-  {
-    'begin': '(?!^%%$)'
-    'end': '(?=^%%$)'
-    'comment': 'First area with prologue and declarations'
-    'name': 'markup.comment'
-  }
-]
-'repository':
-  'rules':
+    'begin': '^(%%)$'                             # Has to be the first pattern
+    'comment': 'Match from first %% symbol to EOF'
+    'captures':
+      '0':
+        'name': 'markup.italic'                   # Match first %% symbol
     'patterns': [
       {
-        'begin': '^(%%)$'
-        'comment': 'Match grammar rules area'
+        'begin': '^(%%)$'                         # Has to be the first pattern
+        'comment': 'Match from second %% symbol to EOF'
         'captures':
           '0':
-            'name': 'markup.italic'           # Match first %% symbol
+            'name': 'markup.italic'               # Match second %% symbol
         'patterns': [
           {
-            'include': '#epilogue'            # Has to be the first pattern
-            'comment': 'Match the beginning of the epilogue'
+            'include': '#exceeding_sections'      # Has to be the first pattern
           }
           {
-            'begin': '(?!^%%$)'
-            'end': '(?=^%%$)'
-            'comment': 'Second area with grammar rules'
-            'name': 'markup.comment'
+            'include': '#third_section'
           }
         ]
       }
+      {
+        'include': '#second_section'
+      }
     ]
-  'epilogue':
+  }
+  {
+    'include': '#first_section'
+  }
+]
+'repository':
+  'first_section':
     'patterns': [
-      'begin': '^(%%)$'
-      'comment': 'Match epilogue area'
-      'captures':
-        '0':
-          'name': 'markup.italic'             # Match second %% symbol
-      'patterns': [
-        {
-          'include': '#structure_error'       # Has to be the first pattern
-          'comment': 'Match the first exceeding %% symbol'
-        }
         {
           'begin': '(?!^%%$)'
           'end': '(?=^%%$)'
-          'comment': 'Second area with grammar rules'
+          'comment': 'Match the content of the first section'
           'name': 'markup.comment'
         }
-      ]
     ]
-  'structure_error':
+  'second_section':
+    'patterns': [
+      {
+        'begin': '(?!^%%$)'
+        'end': '(?=^%%$)'
+        'comment': 'Match the content of the second section'
+        'name': 'markup.comment'
+      }
+    ]
+  'third_section':
+    'patterns': [
+      {
+        'begin': '(?!^%%$)'
+        'end': '(?=^%%$)'
+        'comment': 'Match the content of the third section'
+        'name': 'markup.comment'
+      }
+    ]
+  'exceeding_sections':
     'patterns': [
       'begin': '^(%%)$'
       'name': 'invalid.illegal.exceeding-%%-symbols.bison'
-      'comment': 'Match exceeding %% symbols'
+      'comment': 'Match exceeding sections created by too many %% symbols'
     ]
