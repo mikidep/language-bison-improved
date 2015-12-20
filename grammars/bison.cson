@@ -78,6 +78,12 @@
         'end': '(?=^%%$)'
         'comment': 'Match the content of the third section'
         'name': 'meta.section.third.bison'
+        'patterns': [
+          {
+            #'include': 'source.c'
+            'comment': 'Epilogue contains C code only'
+          }
+        ]
       }
     ]
   'exceeding_sections':
@@ -98,6 +104,7 @@
       'patterns': [
         {
           #'include': 'source.c'
+          'comment': 'Prologues contain C code only'
         }
       ]
     ]
