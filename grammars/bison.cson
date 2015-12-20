@@ -49,7 +49,7 @@
           }
           # TODO: Matching of declarations goes here, or above.
           {
-            'include': 'source.c#comments'
+            'include': '#comments'
             'comment': 'Bison supports C/C++ comments'
           }
         ]
@@ -65,7 +65,7 @@
         'patterns': [
           # TODO: Matching of C code in brackets goes here
           {
-            'include': 'source.c#comments'
+            'include': '#comments'
             'comment': 'Bison supports C/C++ comments'
           }
         ]
