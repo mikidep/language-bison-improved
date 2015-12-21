@@ -20,3 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+--------------------------------------------------------------------
+
+Substantial portions of the code in this package were taken from another Atom
+package located at https://github.com/atom/language-c and distributed under
+the following license: https://github.com/atom/language-c/blob/master/LICENSE.md
