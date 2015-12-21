@@ -113,15 +113,55 @@
   'rules':
     'patterns': [
       {
-        'begin': '[a-zA-Z_.\-][a-zA-Z_.\-0-9]*\\s*:'
+        'begin': '([a-zA-Z_.\-][a-zA-Z_.\-0-9]*)\\s*(:)'
         'end': ';'
-        #TODO: Add names for production heads and ; symbol
+        'beginCaptures':
+          '1':
+            'name': 'variable.grammar-rule.token-type.bison'
+            'comment': 'Match the result of the grammar rule'
+          '2':
+            'name': 'punctuation.grammar-rule.result-separator.bison'     # :
+        'endCaptures':
+          '0':
+            'name': 'punctuation.grammar-rule.end.bison'
         'comment': 'Match grammar rules, second section only'
         'name': 'meta.grammar-rule.bison'
         'patterns': [
           {
+            'include': '#components'
+          }
+        ]
+      }
+    ]
+  'components':
+    'patterns': [
+      {
+        'begin': '(?=([a-zA-Z_.\-][a-zA-Z_.\-0-9]*)?)'  # (?) Comp can be empty
+        'end': '\\||(?=;)'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.grammar-rule.component-separator.bison'  # |
+        'comment': 'Match each component in a grammar rule'
+        'name': 'meta.section.component'
+        'patterns': [
+          {
             'include': '#comments'
-            'comment': 'Comments can be also inside grammar rules'
+            'comment': 'Comments can be also inside grammar components'
+          }
+          {
+            'match': '\'.\''
+            'comment': 'Match single character tokens inside components'
+            'name': 'string.quoted.single.character-token.bison'
+          }
+          {
+            'match': '%[a-z]+'  # TODO: Use operator list
+            'comment': 'Match modifiers inside grammar rules'
+            'name': 'keyword.control.bison'
+          }
+          {
+            'match': '[a-zA-Z_.\-][a-zA-Z_.\-0-9]*'
+            'comment': 'Match term and non-term symbols inside a component'
+            'name': 'variable.grammar-rule.token-type.bison'
           }
           {
             'include': '#actions'
