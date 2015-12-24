@@ -177,9 +177,24 @@
             'comment': 'Comments can be also inside grammar components'
           }
           {
-            'match': '\'.\''
+            'begin': '\''
+            'beginCaptures':
+              '0':
+                'name': 'punctuation.definition.string.begin.bison'
+            'end': '\''
+            'endCaptures':
+              '0':
+                'name': 'punctuation.definition.string.end.bison'
             'comment': 'Match single character tokens inside components'
             'name': 'string.quoted.single.character-token.bison'
+            'patterns': [
+              {
+                'include': '#string_escaped_char'
+              }
+              {
+                'include': '#line_continuation_character'
+              }
+            ]
           }
           {
             'include': '#directives'
